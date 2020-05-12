@@ -33,8 +33,8 @@ jobs:
     needs: [one]
     steps:
       - run: |
-          if [ $VALUE == "test1" ]; then;
+          if [ $VALUE == "test1" ]; then
             echo ${{needs.one.outputs.test1-output1}} ${{needs.one.outputs.test1-output2}}
-          elif [ $VALUE == "test2" ]; then;
+          elif [ $VALUE == "test2" ]; then
             echo ${{needs.one.outputs.test2-output1}} ${{needs.one.outputs.test2-output2}}
           fi
