@@ -1,0 +1,30 @@
+name: test
+on:
+  push:
+    branches: [ master ]
+    
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        value: [test1, test2]
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
+
+    steps:
+      - id: step1
+        env:
+          VALUE: ${{matrix.value}}
+        run:  echo "::set-output name=test::step1-${VALUE}"
+      - id: step2
+        env:
+          VALUE: ${{matrix.value}}
+        run:  echo "::set-output name=test::step2-${VALUE}"
+        
+  two:
+    runs-on: ubuntu-latest
+    needs: [one]
+    steps:
+      - run: echo ${{needs.one.outputs.output1}} ${{needs.one.outputs.output2}}
