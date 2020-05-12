@@ -12,14 +12,16 @@ jobs:
     env:
       VALUE: ${{matrix.value}}
     outputs:
-       ${{matrix.value}}-output1: ${{ steps.step1.outputs.test }}
-       ${{matrix.value}}-output2: ${{ steps.step2.outputs.test }}
+       test1-output1: ${{ steps.step1.outputs.test1-output1 }}
+       test2-output1: ${{ steps.step1.outputs.test2-output1 }}
+       test1-output2: ${{ steps.step2.outputs.test1-output2 }}
+       test2-output2: ${{ steps.step2.outputs.test2-output2 }}
 
     steps:
       - id: step1
-        run:  echo "::set-output name=test::step1-${VALUE}"
+        run:  echo "::set-output name=${VALUE}-output1::step1-${VALUE}"
       - id: step2
-        run:  echo "::set-output name=test::step2-${VALUE}"
+        run:  echo "::set-output name=${VALUE}-output2::step2-${VALUE}"
         
   two:
     runs-on: ubuntu-latest
