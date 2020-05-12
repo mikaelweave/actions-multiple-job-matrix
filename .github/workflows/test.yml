@@ -32,4 +32,9 @@ jobs:
       VALUE: ${{matrix.value}}
     needs: [one]
     steps:
-      - run: echo ${{needs.one.outputs.$VALUE-output1}} ${{needs.one.outputs.$VALUE-output2}}
+      - run: |
+          if [ $VALUE == "test1" ]; then;
+            echo ${{needs.one.outputs.test1-output1}} ${{needs.one.outputs.test1-output2}}
+          elif [ $VALUE == "test2" ]; then;
+            echo ${{needs.one.outputs.test2-output1}} ${{needs.one.outputs.test2-output2}}
+          fi
