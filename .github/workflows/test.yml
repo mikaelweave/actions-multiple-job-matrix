@@ -12,8 +12,8 @@ jobs:
     env:
       VALUE: ${{matrix.value}}
     outputs:
-      output1: ${{ steps.step1.outputs.test }}
-      output2: ${{ steps.step2.outputs.test }}
+       ${{matrix.value}}-output1: ${{ steps.step1.outputs.test }}
+       ${{matrix.value}}-output1: ${{ steps.step2.outputs.test }}
 
     steps:
       - id: step1
@@ -28,4 +28,4 @@ jobs:
         value: [test1, test2]
     needs: [one]
     steps:
-      - run: echo ${{needs.one.outputs.output1}} ${{needs.one.outputs.output2}}
+      - run: echo ${{needs.one.outputs.${{matrix.value}}-output1}} ${{needs.one.outputs.${{matrix.value}}-output2}}
