@@ -33,7 +33,8 @@ jobs:
     needs: [one]
     steps:
       - run: |
-          echo ${{needs.one.outputs.test1-output1}} ${{needs.one.outputs.${{ matrix.value }}-output2}}
+          EXAMPLE=${{matrix.value}}
+          echo ${{needs.one.outputs.test1-output1}} ${{needs.one.outputs.$EXAMPLE-output2}}
           #if [ $VALUE == "test1" ]; then
           #  echo ${{needs.one.outputs.test1-output1}} ${{needs.one.outputs.test1-output2}}
           #elif [ $VALUE == "test2" ]; then
