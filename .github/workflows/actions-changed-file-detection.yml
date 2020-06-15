@@ -1,0 +1,35 @@
+name: Changed File Detection
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - uses: jitterbit/get-changed-files@v1
+      id: changed_files
+      with:
+        format: space-delimited
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Printing
+      run: |
+        echo "All:"
+        echo "${{ steps.changed_files.outputs.all }}"
+        echo "Added:"
+        echo "${{ steps.changed_files.outputs.added }}"
+        echo "Removed:"
+        echo "${{ steps.changed_files.outputs.removed }}"
+        echo "Renamed:"
+        echo "${{ steps.changed_files.outputs.renamed }}"
+        echo "Modified:"
+        echo "${{ steps.changed_files.outputs.modified }}"
+        echo "Added+Modified:"
+        echo "${{ steps.changed_files.outputs.added_modified }}"
